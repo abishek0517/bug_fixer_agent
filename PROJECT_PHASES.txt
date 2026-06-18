@@ -1,0 +1,180 @@
+Auto Bug Fixer Agent - Project Phases
+
+Goal:
+Build a Python-only agentic AI project that can detect bugs, ask a local LLM for fixes, test the generated code, remember attempts, and improve over time.
+
+Completed Phase: Phase 1 - First Working Bug Fixing Loop
+
+Status: Completed
+
+What is done:
+- Created a buggy Python file: sample_bug.py
+- Created runner.py to execute Python code and capture stdout, stderr, and success status
+- Created ollama_client.py to send prompts to local Ollama
+- Created main.py as the main bug-fixing agent loop
+- Detected a ZeroDivisionError from sample_bug.py
+- Sent the buggy code and error message to Ollama
+- Received corrected Python code
+- Saved the corrected code into fixed_code.py
+- Re-ran the fixed file successfully
+
+Current architecture:
+
+Auto Bug Fixer Agent
+|
+|-- sample_bug.py       Original buggy Python input
+|-- runner.py           Runs code and captures output/errors
+|-- ollama_client.py    Sends prompts to Ollama
+|-- main.py             Controls the agent loop
+|-- fixed_code.py       Generated fixed output
+
+main.py flow:
+1. Run the current Python file
+2. Check whether it failed
+3. Read the failed code
+4. Send code and error to Ollama
+5. Clean the model response
+6. Save the fixed code
+7. Re-run the fixed file
+8. Repeat until success or max attempts are reached
+
+Phase 2 - Better Agent Loop
+
+Goal:
+Make the current Python-only agent more reliable and agent-like.
+
+Planned work:
+- Add graceful handling when Ollama is not running
+- Add retry memory inside the prompt
+- Save every generated attempt separately
+- Avoid overwriting important files directly
+- Track previous failed fixes
+- Tell the model not to repeat earlier failed fixes
+- Improve prompt quality for syntax errors and runtime errors
+
+Example output structure:
+
+attempts/
+|-- attempt_1.py
+|-- attempt_2.py
+|-- attempt_3.py
+
+Phase 3 - Agent State and Memory
+
+Goal:
+Teach the agent to remember what happened across attempts.
+
+Planned work:
+- Create a JSON history file
+- Store original code
+- Store error messages
+- Store generated fixes
+- Store whether each attempt succeeded or failed
+- Store timestamps
+- Use previous attempts as context for the next fix
+
+Example memory file:
+
+bug_history.json
+
+Possible fields:
+- bug_id
+- original_file
+- original_code
+- error_message
+- attempts
+- final_status
+- created_at
+
+Phase 4 - Tool-Based Agent Design
+
+Goal:
+Restructure the project so the agent uses clear tools, similar to real agentic AI systems.
+
+Planned tools:
+- read_file
+- write_file
+- run_code
+- ask_model
+- validate_code
+- save_attempt
+- load_history
+
+Why this matters:
+This makes the project closer to real agent frameworks, where an agent decides which tool to use based on the current state.
+
+Phase 5 - Structured Reasoning Output
+
+Goal:
+Make the model return structured data instead of plain code only.
+
+Planned work:
+- Ask Ollama to return JSON
+- Parse the JSON safely
+- Separate explanation from fixed code
+- Add a confidence score
+- Add bug type classification
+
+Example model response:
+
+{
+  "bug_type": "runtime_error",
+  "reason": "The code divides by zero.",
+  "fixed_code": "...",
+  "confidence": 0.85
+}
+
+Phase 6 - Python Logic Error Fixing
+
+Goal:
+Move beyond runtime crashes and start fixing incorrect behavior.
+
+Planned work:
+- Add expected output examples
+- Add simple test cases
+- Run generated fixes against tests
+- Treat failed tests as feedback for the next attempt
+- Support bugs where the code runs but gives the wrong answer
+
+Phase 7 - Simple UI
+
+Goal:
+Build an interface for using the agent more easily.
+
+Recommended first UI:
+Streamlit
+
+Planned features:
+- Upload or paste Python code
+- Run the bug fixer
+- Show original error
+- Show generated fixed code
+- Show explanation
+- Show attempt history
+- Show success/failure result
+
+Later UI option:
+- React frontend
+- Drag-and-drop code upload
+- Bug history dashboard
+
+Phase 8 - Multi-Agent System
+
+Goal:
+Split the system into multiple agents with different responsibilities.
+
+Planned agents:
+- Debug Agent: generates possible fixes
+- Tester Agent: runs code and checks success
+- Reviewer Agent: checks whether the fix is minimal and safe
+- Manager Agent: decides whether to retry, accept, or reject a fix
+
+Possible flow:
+1. Manager Agent receives the bug
+2. Debug Agent proposes a fix
+3. Tester Agent runs the fix
+4. Reviewer Agent checks quality
+5. Manager Agent decides next action
+
+Final Vision:
+A Python-only agentic AI bug fixer that can detect errors, generate fixes, test them, remember failed attempts, explain its reasoning, and coordinate multiple specialized agents.
