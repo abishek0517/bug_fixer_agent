@@ -1,0 +1,18 @@
+[
+    {
+        "run_id": "20260618_174657",
+        "run_folder": "attempts/run_20260618_174657",
+        "original_file": "sample_bug.py",
+        "final_file": "attempts/run_20260618_174657/attempt_1.py",
+        "success": true,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": "attempts/run_20260618_174657/attempt_1.py",
+                "code": "def calculate_discount(price, discount):\n    final_price = price - discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+                "error": "Traceback (most recent call last):\n  File \"C:\\Users\\abishek\\Desktop\\PROJECTS\\bug_fixer_agent\\sample_bug.py\", line 10, in <module>\n    raise Exception(f\"Expected 190, got {result}\")\nException: Expected 190, got 210\n"
+            }
+        ],
+        "finished_at": "2026-06-18T17:47:03.019651"
+    }
+]

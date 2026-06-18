@@ -1,180 +1,171 @@
 Auto Bug Fixer Agent - Project Phases
 
 Goal:
-Build a Python-only agentic AI project that can detect bugs, ask a local LLM for fixes, test the generated code, remember attempts, and improve over time.
+Build a Python-only agentic AI project that can detect bugs, ask a local LLM for fixes, test generated code, remember attempts, and improve over time.
 
-Completed Phase: Phase 1 - First Working Bug Fixing Loop
+Current Phase Status:
+- Phase 1: Complete
+- Phase 2: Functional, needs polish
+- Phase 3: Functional, needs polish
+- Phase 4: Not started
+- Phase 5: Not started
+- Phase 6: Partially explored
+- Phase 7: Not started
+- Phase 8: Not started
 
-Status: Completed
+Phase 1 - First Working Bug Fixing Loop
+
+Status:
+Complete
 
 What is done:
-- Created a buggy Python file: sample_bug.py
-- Created runner.py to execute Python code and capture stdout, stderr, and success status
-- Created ollama_client.py to send prompts to local Ollama
-- Created main.py as the main bug-fixing agent loop
-- Detected a ZeroDivisionError from sample_bug.py
-- Sent the buggy code and error message to Ollama
-- Received corrected Python code
-- Saved the corrected code into fixed_code.py
+- Created sample_bug.py as the buggy Python input file
+- Created runner.py to run Python files
+- Captured stdout, stderr, and success status
+- Created ollama_client.py to talk to local Ollama
+- Created main.py as the main agent loop
+- Detected a ZeroDivisionError
+- Sent buggy code and error output to Ollama
+- Received corrected code
+- Saved the fixed version
 - Re-ran the fixed file successfully
 
-Current architecture:
-
-Auto Bug Fixer Agent
-|
-|-- sample_bug.py       Original buggy Python input
-|-- runner.py           Runs code and captures output/errors
-|-- ollama_client.py    Sends prompts to Ollama
-|-- main.py             Controls the agent loop
-|-- fixed_code.py       Generated fixed output
-
-main.py flow:
-1. Run the current Python file
-2. Check whether it failed
-3. Read the failed code
-4. Send code and error to Ollama
-5. Clean the model response
-6. Save the fixed code
-7. Re-run the fixed file
-8. Repeat until success or max attempts are reached
+Tiny meaning:
+The agent can see a bug, ask for help, save a fix, and test the fix.
 
 Phase 2 - Better Agent Loop
 
-Goal:
-Make the current Python-only agent more reliable and agent-like.
+Status:
+Functional, needs polish
 
-Planned work:
-- Add graceful handling when Ollama is not running
-- Add retry memory inside the prompt
-- Save every generated attempt separately
-- Avoid overwriting important files directly
-- Track previous failed fixes
-- Tell the model not to repeat earlier failed fixes
-- Improve prompt quality for syntax errors and runtime errors
+What is done:
+- Added MAX_ATTEMPTS retry loop
+- Added graceful handling when Ollama returns no response
+- Saved each generated attempt separately
+- Added previous_attempts as short-term memory
+- Added previous attempts into the prompt
+- Told Ollama not to repeat earlier attempts
 
-Example output structure:
+Still to polish:
+- Check if generated code is empty before saving
+- Check if generated code is valid Python before running
+- Improve response cleaning
+- Improve prompt rules for different bug types
 
-attempts/
-|-- attempt_1.py
-|-- attempt_2.py
-|-- attempt_3.py
+Tiny meaning:
+The agent can try more than once and remember what it already tried during the run.
 
 Phase 3 - Agent State and Memory
 
-Goal:
-Teach the agent to remember what happened across attempts.
+Status:
+Functional, needs polish
 
-Planned work:
-- Create a JSON history file
-- Store original code
-- Store error messages
-- Store generated fixes
-- Store whether each attempt succeeded or failed
-- Store timestamps
-- Use previous attempts as context for the next fix
+What is done:
+- Created bug_history.json for long-term memory
+- Saved successful and failed run records
+- Saved attempt code, error output, final file, and timestamp
+- Added run_id for each run
+- Created a unique folder for every run
+- Saved attempts inside folders like attempts/run_YYYYMMDD_HHMMSS/
+- Made bug_history.json auto-create if missing
 
-Example memory file:
+Still to polish:
+- Handle empty or broken bug_history.json
+- Save original code in every history record
+- Add bug type field
+- Add clearer final status messages
 
-bug_history.json
-
-Possible fields:
-- bug_id
-- original_file
-- original_code
-- error_message
-- attempts
-- final_status
-- created_at
+Tiny meaning:
+The agent now has a notebook on disk, so it can remember what happened after the program closes.
 
 Phase 4 - Tool-Based Agent Design
 
+Status:
+Not started
+
 Goal:
-Restructure the project so the agent uses clear tools, similar to real agentic AI systems.
+Split the project into small tools, like real agent systems.
 
 Planned tools:
 - read_file
 - write_file
 - run_code
 - ask_model
-- validate_code
+- clean_model_response
 - save_attempt
+- save_history
 - load_history
 
-Why this matters:
-This makes the project closer to real agent frameworks, where an agent decides which tool to use based on the current state.
+Tiny meaning:
+Instead of putting everything in main.py, each job gets its own small helper.
 
 Phase 5 - Structured Reasoning Output
 
+Status:
+Not started
+
 Goal:
-Make the model return structured data instead of plain code only.
+Make Ollama return structured JSON instead of only plain code.
 
-Planned work:
-- Ask Ollama to return JSON
-- Parse the JSON safely
-- Separate explanation from fixed code
-- Add a confidence score
-- Add bug type classification
+Planned output fields:
+- bug_type
+- explanation
+- fixed_code
+- confidence
 
-Example model response:
-
-{
-  "bug_type": "runtime_error",
-  "reason": "The code divides by zero.",
-  "fixed_code": "...",
-  "confidence": 0.85
-}
+Tiny meaning:
+The model gives the agent organized information, not just a block of code.
 
 Phase 6 - Python Logic Error Fixing
 
-Goal:
-Move beyond runtime crashes and start fixing incorrect behavior.
+Status:
+Partially explored
 
-Planned work:
-- Add expected output examples
-- Add simple test cases
-- Run generated fixes against tests
-- Treat failed tests as feedback for the next attempt
-- Support bugs where the code runs but gives the wrong answer
+What is done:
+- Tested a logic bug in calculate_discount
+- Agent fixed price + discount into price - discount
+- Agent successfully passed the expected output check
+
+Still to build:
+- Proper test case system
+- Multiple expected outputs
+- Better validation for wrong answers
+
+Tiny meaning:
+The agent has started fixing code that runs but gives the wrong answer.
 
 Phase 7 - Simple UI
 
-Goal:
-Build an interface for using the agent more easily.
+Status:
+Not started
 
 Recommended first UI:
 Streamlit
 
 Planned features:
-- Upload or paste Python code
+- Paste or upload Python code
 - Run the bug fixer
 - Show original error
-- Show generated fixed code
-- Show explanation
+- Show generated fix
 - Show attempt history
-- Show success/failure result
+- Show final success or failure
 
-Later UI option:
-- React frontend
-- Drag-and-drop code upload
-- Bug history dashboard
+Tiny meaning:
+Make the agent easier to use without the terminal.
 
 Phase 8 - Multi-Agent System
 
-Goal:
-Split the system into multiple agents with different responsibilities.
+Status:
+Not started
 
 Planned agents:
-- Debug Agent: generates possible fixes
-- Tester Agent: runs code and checks success
-- Reviewer Agent: checks whether the fix is minimal and safe
-- Manager Agent: decides whether to retry, accept, or reject a fix
+- Debug Agent: creates fixes
+- Tester Agent: runs fixes
+- Reviewer Agent: checks if fixes are safe and small
+- Manager Agent: decides whether to retry or stop
 
-Possible flow:
-1. Manager Agent receives the bug
-2. Debug Agent proposes a fix
-3. Tester Agent runs the fix
-4. Reviewer Agent checks quality
-5. Manager Agent decides next action
+Tiny meaning:
+Instead of one agent doing everything, different agents get different jobs.
 
 Final Vision:
-A Python-only agentic AI bug fixer that can detect errors, generate fixes, test them, remember failed attempts, explain its reasoning, and coordinate multiple specialized agents.
+A Python-only bug fixer agent that can detect errors, generate fixes, test them, remember attempts, explain changes, and later coordinate multiple specialized agents.

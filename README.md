@@ -1,59 +1,108 @@
 # Auto Bug Fixer Agent
 
-An Agentic AI project that automatically detects, analyzes, and fixes Python runtime errors using a local LLM powered by Ollama and Llama 3.
+A Python-only Agentic AI learning project that detects bugs, asks a local LLM for fixes, saves each attempt, reruns the code, and records history.
 
-## Features
+The goal of this project is to learn how agents work:
 
-* Executes Python code
-* Captures runtime errors
-* Sends code and error details to a local LLM
-* Generates corrected code
-* Saves the fix automatically
-* Validates the fix by rerunning the code
+- observe a failure
+- ask a model for a fix
+- take an action
+- test the result
+- remember what happened
+- retry when needed
 
-## Tech Stack
+## Current Status
 
-* Python 3.13
-* Ollama
-* Llama 3
-* Requests
+Completed:
 
-## Project Workflow
+- Phase 1: First working bug-fixing loop
+- Phase 2: Functional better agent loop
+- Phase 3: Functional agent memory and history
 
-1. Execute buggy Python code
-2. Capture error output
-3. Send code and error to Llama 3
-4. Generate a fix
-5. Save corrected code
-6. Re-run code to verify success
+Next:
 
-## Example
+- Polish Phase 2 and Phase 3
+- Start Phase 4: tool-based agent design
 
-Input:
+## Current Features
 
-```python
-def divide(a, b):
-    return a / b
+- Runs Python code
+- Captures stdout, stderr, and success status
+- Sends buggy code and error messages to Ollama
+- Uses Llama 3 locally
+- Handles missing Ollama responses without crashing
+- Retries fixes up to a maximum attempt count
+- Saves each attempt in a unique run folder
+- Stores run history in `bug_history.json`
+- Remembers previous attempts during the current run
+- Can fix simple runtime errors and basic logic errors
 
-print(divide(10, 0))
+## Project Structure
+
+```text
+Auto Bug Fixer Agent
+|
+|-- sample_bug.py          Buggy Python input file
+|-- runner.py              Runs Python files and captures output
+|-- ollama_client.py       Talks to local Ollama
+|-- main.py                Main agent loop
+|-- bug_history.json       Saved run history
+|-- PROJECT_PHASES.txt     Project roadmap
+|-- attempts/              Generated fix attempts
 ```
 
-Output:
+## How It Works
 
-```python
-def divide(a, b):
-    if b == 0:
-        return "Cannot divide by zero"
-    else:
-        return a / b
-
-print(divide(10, 0))
+```text
+main.py
+|
+|-- run the current Python file
+|-- if it succeeds, save history and stop
+|-- if it fails, read the code
+|-- build a prompt with code, error, and previous attempts
+|-- ask Ollama for fixed code
+|-- save the generated attempt
+|-- rerun the generated attempt
+|-- repeat until success or max attempts
 ```
 
-## Future Improvements
+## Requirements
 
-* Self-retrying agent loops
-* Reflection and memory
-* Unit test generation
-* Git integration
-* Multi-file project debugging
+- Python
+- Ollama
+- Llama 3 model
+- requests package
+
+## Run
+
+Start from the project folder:
+
+```powershell
+cd C:\Users\abishek\Desktop\PROJECTS\bug_fixer_agent
+```
+
+Make sure Ollama has Llama 3:
+
+```powershell
+ollama pull llama3
+```
+
+Run the agent:
+
+```powershell
+python main.py
+```
+
+## Learning Focus
+
+This project intentionally stays Python-only for now. The main learning goal is agentic AI behavior, not multi-language support.
+
+The important concepts are:
+
+- agent loop
+- tool use
+- short-term memory
+- long-term memory
+- retry logic
+- verification after action
+- later, multi-agent coordination
