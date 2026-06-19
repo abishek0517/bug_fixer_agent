@@ -13,6 +13,8 @@ The goal of this project is to learn how agents work:
 
 ## Current Status
 
+Current checkpoint: **Phase 4 completed**
+
 Completed:
 
 - Phase 1: First working bug-fixing loop
@@ -23,6 +25,18 @@ Completed:
 Next:
 
 - Start Phase 5: structured reasoning output
+
+Note: A small part of Phase 6 was tested early, but Phase 6 is not complete.
+
+## Learning Workflow
+
+This is a hands-on learning project:
+
+- The student writes and updates the Python code.
+- Each new idea is explained briefly in simple language.
+- Code is added one small step at a time.
+- When a file needs changes, the complete revised file is shown.
+- The code is tested after each meaningful step.
 
 ## Current Features
 
@@ -42,7 +56,7 @@ Next:
 - Builds prompts through a helper tool
 - Saves history records through a helper tool
 - Keeps original test code locked while applying generated fixes
-- Can fix simple runtime errors and basic logic errors
+- Has fixed simple runtime errors and one experimental logic error
 
 ## Project Structure
 

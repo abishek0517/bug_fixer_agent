@@ -9,9 +9,19 @@ Current Phase Status:
 - Phase 3: Complete
 - Phase 4: Complete
 - Phase 5: Not started
-- Phase 6: Partially explored
+- Phase 6: Early experiment only
 - Phase 7: Not started
 - Phase 8: Not started
+
+Current Checkpoint:
+Phase 4 is complete. Phase 5 is the next phase to learn and build.
+
+Learning Rules:
+- The student writes and updates the Python code
+- Explain each new idea briefly and in simple words
+- Build one small step at a time
+- Show the complete revised file when code changes are needed
+- Test after each meaningful step
 
 Phase 1 - First Working Bug Fixing Loop
 
@@ -120,7 +130,7 @@ The model gives the agent organized information, not just a block of code.
 Phase 6 - Python Logic Error Fixing
 
 Status:
-Partially explored
+Early experiment only
 
 What is done:
 - Tested a logic bug in calculate_discount
@@ -133,7 +143,7 @@ Still to build:
 - Better validation for wrong answers
 
 Tiny meaning:
-The agent has started fixing code that runs but gives the wrong answer.
+The agent tried one example of fixing code that runs but gives the wrong answer. The full phase still needs to be built.
 
 Phase 7 - Simple UI
 
