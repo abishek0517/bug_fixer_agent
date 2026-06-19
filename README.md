@@ -16,13 +16,13 @@ The goal of this project is to learn how agents work:
 Completed:
 
 - Phase 1: First working bug-fixing loop
-- Phase 2: Functional better agent loop
-- Phase 3: Functional agent memory and history
+- Phase 2: Better agent loop
+- Phase 3: Agent memory and history
+- Phase 4: Tool-based agent design
 
 Next:
 
-- Polish Phase 2 and Phase 3
-- Start Phase 4: tool-based agent design
+- Start Phase 5: structured reasoning output
 
 ## Current Features
 
@@ -38,6 +38,10 @@ Next:
 - Remembers previous attempts during the current run
 - Rejects empty model responses
 - Checks generated fixes are valid Python before running them
+- Uses `tools.py` for reusable agent tools
+- Builds prompts through a helper tool
+- Saves history records through a helper tool
+- Keeps original test code locked while applying generated fixes
 - Can fix simple runtime errors and basic logic errors
 
 ## Project Structure
@@ -48,6 +52,7 @@ Auto Bug Fixer Agent
 |-- sample_bug.py          Buggy Python input file
 |-- runner.py              Runs Python files and captures output
 |-- ollama_client.py       Talks to local Ollama
+|-- tools.py               Reusable agent helper tools
 |-- main.py                Main agent loop
 |-- bug_history.json       Saved run history
 |-- PROJECT_PHASES.txt     Project roadmap
@@ -64,6 +69,8 @@ main.py
 |-- if it fails, read the code
 |-- build a prompt with code, error, and previous attempts
 |-- ask Ollama for fixed code
+|-- clean the model response
+|-- keep the original test code locked
 |-- save the generated attempt
 |-- rerun the generated attempt
 |-- repeat until success or max attempts

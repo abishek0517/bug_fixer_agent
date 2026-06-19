@@ -5,9 +5,9 @@ Build a Python-only agentic AI project that can detect bugs, ask a local LLM for
 
 Current Phase Status:
 - Phase 1: Complete
-- Phase 2: Functional, needs polish
-- Phase 3: Functional, needs polish
-- Phase 4: Not started
+- Phase 2: Complete
+- Phase 3: Complete
+- Phase 4: Complete
 - Phase 5: Not started
 - Phase 6: Partially explored
 - Phase 7: Not started
@@ -36,7 +36,7 @@ The agent can see a bug, ask for help, save a fix, and test the fix.
 Phase 2 - Better Agent Loop
 
 Status:
-Functional, needs polish
+Complete
 
 What is done:
 - Added MAX_ATTEMPTS retry loop
@@ -49,16 +49,13 @@ What is done:
 - Checked if generated code is valid Python before running
 - Improved response cleaning
 
-Still to polish:
-- Improve prompt rules for different bug types
-
 Tiny meaning:
 The agent can try more than once and remember what it already tried during the run.
 
 Phase 3 - Agent State and Memory
 
 Status:
-Functional, needs polish
+Complete
 
 What is done:
 - Created bug_history.json for long-term memory
@@ -72,29 +69,33 @@ What is done:
 - Saved original code in every history record
 - Added clearer final status messages
 
-Still to polish:
-- Add bug type field
-
 Tiny meaning:
 The agent now has a notebook on disk, so it can remember what happened after the program closes.
 
 Phase 4 - Tool-Based Agent Design
 
 Status:
-Not started
+Complete
 
 Goal:
 Split the project into small tools, like real agent systems.
 
-Planned tools:
+What is done:
 - read_file
 - write_file
-- run_code
-- ask_model
-- clean_model_response
-- save_attempt
-- save_history
+- create_run_folder
 - load_history
+- save_history
+- create_history_record
+- clean_model_response
+- is_valid_python
+- save_attempt
+- create_attempt_memory
+- build_prompt
+- keep_original_test_code
+- main.py now reads more like a simple agent loop
+- tools.py contains reusable helper tools
+- The agent keeps the original test code locked while trying fixes
 
 Tiny meaning:
 Instead of putting everything in main.py, each job gets its own small helper.
