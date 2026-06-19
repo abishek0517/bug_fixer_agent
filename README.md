@@ -34,7 +34,10 @@ Next:
 - Retries fixes up to a maximum attempt count
 - Saves each attempt in a unique run folder
 - Stores run history in `bug_history.json`
+- Handles empty or broken history files
 - Remembers previous attempts during the current run
+- Rejects empty model responses
+- Checks generated fixes are valid Python before running them
 - Can fix simple runtime errors and basic logic errors
 
 ## Project Structure

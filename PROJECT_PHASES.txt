@@ -45,11 +45,11 @@ What is done:
 - Added previous_attempts as short-term memory
 - Added previous attempts into the prompt
 - Told Ollama not to repeat earlier attempts
+- Checked if generated code is empty before saving
+- Checked if generated code is valid Python before running
+- Improved response cleaning
 
 Still to polish:
-- Check if generated code is empty before saving
-- Check if generated code is valid Python before running
-- Improve response cleaning
 - Improve prompt rules for different bug types
 
 Tiny meaning:
@@ -68,12 +68,12 @@ What is done:
 - Created a unique folder for every run
 - Saved attempts inside folders like attempts/run_YYYYMMDD_HHMMSS/
 - Made bug_history.json auto-create if missing
+- Handled empty or broken bug_history.json
+- Saved original code in every history record
+- Added clearer final status messages
 
 Still to polish:
-- Handle empty or broken bug_history.json
-- Save original code in every history record
 - Add bug type field
-- Add clearer final status messages
 
 Tiny meaning:
 The agent now has a notebook on disk, so it can remember what happened after the program closes.
