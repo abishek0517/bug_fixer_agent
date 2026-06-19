@@ -8,13 +8,13 @@ Current Phase Status:
 - Phase 2: Complete
 - Phase 3: Complete
 - Phase 4: Complete
-- Phase 5: Not started
+- Phase 5: Complete
 - Phase 6: Early experiment only
 - Phase 7: Not started
 - Phase 8: Not started
 
 Current Checkpoint:
-Phase 4 is complete. Phase 5 is the next phase to learn and build.
+Phase 5 is complete. Phase 6 is the next phase to learn and build.
 
 Learning Rules:
 - The student writes and updates the Python code
@@ -113,16 +113,24 @@ Instead of putting everything in main.py, each job gets its own small helper.
 Phase 5 - Structured Reasoning Output
 
 Status:
-Not started
+Complete
 
 Goal:
 Make Ollama return structured JSON instead of only plain code.
 
-Planned output fields:
+Output fields:
 - bug_type
 - explanation
 - fixed_code
 - confidence
+
+What is done:
+- Added a JSON schema to the Ollama request
+- Added parse_model_response to read structured JSON
+- Rejected responses with missing required fields
+- Displayed bug type, explanation, and confidence in the terminal
+- Saved structured reasoning details in attempt history
+- Tested the complete structured-output flow successfully
 
 Tiny meaning:
 The model gives the agent organized information, not just a block of code.

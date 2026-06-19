@@ -1,6 +1,31 @@
 import requests
 
 
+RESPONSE_FORMAT = {
+    "type": "object",
+    "properties": {
+        "bug_type": {
+            "type": "string"
+        },
+        "explanation": {
+            "type": "string"
+        },
+        "fixed_code": {
+            "type": "string"
+        },
+        "confidence": {
+            "type": "number"
+        }
+    },
+    "required": [
+        "bug_type",
+        "explanation",
+        "fixed_code",
+        "confidence"
+    ]
+}
+
+
 def ask_ollama(prompt):
     try:
         response = requests.post(
@@ -8,6 +33,7 @@ def ask_ollama(prompt):
             json={
                 "model": "llama3",
                 "prompt": prompt,
+                "format": RESPONSE_FORMAT,
                 "stream": False
             },
             timeout=60

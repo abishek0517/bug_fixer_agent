@@ -13,7 +13,7 @@ The goal of this project is to learn how agents work:
 
 ## Current Status
 
-Current checkpoint: **Phase 4 completed**
+Current checkpoint: **Phase 5 completed**
 
 Completed:
 
@@ -21,12 +21,13 @@ Completed:
 - Phase 2: Better agent loop
 - Phase 3: Agent memory and history
 - Phase 4: Tool-based agent design
+- Phase 5: Structured reasoning output
 
 Next:
 
-- Start Phase 5: structured reasoning output
+- Start Phase 6: Python logic error fixing
 
-Note: A small part of Phase 6 was tested early, but Phase 6 is not complete.
+Note: A small part of Phase 6 was tested early, but the full phase is not complete.
 
 ## Learning Workflow
 
@@ -57,6 +58,9 @@ This is a hands-on learning project:
 - Saves history records through a helper tool
 - Keeps original test code locked while applying generated fixes
 - Has fixed simple runtime errors and one experimental logic error
+- Requests structured JSON from Ollama using a JSON schema
+- Reads bug type, explanation, fixed code, and confidence
+- Stores structured reasoning details in attempt history
 
 ## Project Structure
 
@@ -82,8 +86,8 @@ main.py
 |-- if it succeeds, save history and stop
 |-- if it fails, read the code
 |-- build a prompt with code, error, and previous attempts
-|-- ask Ollama for fixed code
-|-- clean the model response
+|-- ask Ollama for a structured JSON response
+|-- parse the bug type, explanation, fixed code, and confidence
 |-- keep the original test code locked
 |-- save the generated attempt
 |-- rerun the generated attempt

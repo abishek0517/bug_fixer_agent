@@ -7,7 +7,7 @@ from tools import (
     create_run_folder,
     save_history,
     create_history_record,
-    clean_model_response,
+    parse_model_response,
     is_valid_python,
     save_attempt,
     create_attempt_memory,
@@ -28,7 +28,6 @@ original_code = read_file(ORIGINAL_FILE)
 
 
 for attempt in range(1, MAX_ATTEMPTS + 1):
-
     print(f"\n===== ATTEMPT {attempt} =====")
 
     result = run_code(current_file)
@@ -59,9 +58,9 @@ for attempt in range(1, MAX_ATTEMPTS + 1):
         previous_attempts
     )
 
-    fixed_code = ask_ollama(prompt)
+    model_response = ask_ollama(prompt)
 
-    if fixed_code is None:
+    if model_response is None:
         print("\nOllama is not available or did not return a response.")
 
         record = create_history_record(
@@ -79,7 +78,30 @@ for attempt in range(1, MAX_ATTEMPTS + 1):
         save_history(HISTORY_FILE, record)
         break
 
-    fixed_code = clean_model_response(fixed_code)
+    response_data = parse_model_response(model_response)
+
+    if response_data is None:
+        print("\nModel did not return valid structured JSON.")
+
+        previous_attempts.append(
+            create_attempt_memory(
+                attempt_number=attempt,
+                attempt_file=None,
+                code=model_response,
+                error="Invalid structured JSON response"
+            )
+        )
+
+        continue
+
+    bug_type = response_data["bug_type"]
+    explanation = response_data["explanation"]
+    fixed_code = response_data["fixed_code"]
+    confidence = response_data["confidence"]
+
+    print(f"\nBug type: {bug_type}")
+    print(f"Explanation: {explanation}")
+    print(f"Confidence: {confidence}")
 
     if not fixed_code:
         print("\nModel returned empty code.")
@@ -114,7 +136,10 @@ for attempt in range(1, MAX_ATTEMPTS + 1):
                 attempt_number=attempt,
                 attempt_file=attempt_file,
                 code=fixed_code,
-                error=syntax_error
+                error=syntax_error,
+                bug_type=bug_type,
+                explanation=explanation,
+                confidence=confidence
             )
         )
 
@@ -125,7 +150,10 @@ for attempt in range(1, MAX_ATTEMPTS + 1):
             attempt_number=attempt,
             attempt_file=attempt_file,
             code=fixed_code,
-            error=result["stderr"]
+            error=result["stderr"],
+            bug_type=bug_type,
+            explanation=explanation,
+            confidence=confidence
         )
     )
 

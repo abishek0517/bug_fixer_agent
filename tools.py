@@ -67,9 +67,32 @@ def create_history_record(
 
 
 def clean_model_response(response):
-    fixed_code = response.replace("```python", "")
-    fixed_code = fixed_code.replace("```", "")
-    return fixed_code.strip()
+    cleaned_response = response.replace("```json", "")
+    cleaned_response = cleaned_response.replace("```python", "")
+    cleaned_response = cleaned_response.replace("```", "")
+    return cleaned_response.strip()
+
+
+def parse_model_response(response):
+    cleaned_response = clean_model_response(response)
+
+    try:
+        data = json.loads(cleaned_response)
+    except json.JSONDecodeError:
+        return None
+
+    required_fields = [
+        "bug_type",
+        "explanation",
+        "fixed_code",
+        "confidence"
+    ]
+
+    for field in required_fields:
+        if field not in data:
+            return None
+
+    return data
 
 
 def is_valid_python(filename):
@@ -86,13 +109,32 @@ def save_attempt(run_folder, attempt_number, fixed_code):
     return attempt_file
 
 
-def create_attempt_memory(attempt_number, attempt_file, code, error):
-    return {
+def create_attempt_memory(
+    attempt_number,
+    attempt_file,
+    code,
+    error,
+    bug_type=None,
+    explanation=None,
+    confidence=None
+):
+    memory = {
         "attempt": attempt_number,
         "file": attempt_file,
         "code": code,
         "error": error
     }
+
+    if bug_type is not None:
+        memory["bug_type"] = bug_type
+
+    if explanation is not None:
+        memory["explanation"] = explanation
+
+    if confidence is not None:
+        memory["confidence"] = confidence
+
+    return memory
 
 
 def get_test_marker():
@@ -154,16 +196,25 @@ Important meaning:
 The discount value is a fixed amount, not a percentage.
 For example, price 200 and discount 10 should become 190.
 
+Return only valid JSON using this exact structure:
+
+{{
+    "bug_type": "type of bug",
+    "explanation": "short explanation of the bug",
+    "fixed_code": "complete corrected Python code",
+    "confidence": 0.0
+}}
+
 Rules:
 1. Do NOT change input values.
 2. Do NOT remove functionality.
 3. Only fix the bug.
-4. Return ONLY Python code.
-5. No explanations.
-6. No markdown.
-7. Do NOT repeat previous attempts.
-8. The test code is locked.
-9. Only change the function logic.
+4. Return only valid JSON.
+5. Do NOT use markdown.
+6. Do NOT repeat previous attempts.
+7. The test code is locked.
+8. Only change the function logic.
+9. Confidence must be a number from 0.0 to 1.0.
 
 Previous attempts:
 {previous_attempts_text}

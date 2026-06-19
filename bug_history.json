@@ -231,5 +231,126 @@
             }
         ],
         "finished_at": "2026-06-19T13:55:47.562387"
+    },
+    {
+        "run_id": "20260619_141345",
+        "run_folder": "attempts/run_20260619_141345",
+        "original_file": "sample_bug.py",
+        "original_code": "def calculate_discount(price, discount):\n    final_price = price + discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+        "final_file": "sample_bug.py",
+        "success": false,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": null,
+                "code": "```\ndef calculate_discount(price, discount):\n    final_price = price - discount\n    return final_price\n```",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 2,
+                "file": null,
+                "code": "```\ndef calculate_discount(price, discount):\n    final_price = price - discount\n    return final_price",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 3,
+                "file": null,
+                "code": "```\ndef calculate_discount(price, discount):\n    final_price = price - discount\n    return final_price\n```",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 4,
+                "file": null,
+                "code": "```\ndef calculate_discount(price, discount):\n    final_price = price - int(discount)\n    return final_price\n```",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 5,
+                "file": null,
+                "code": "```\ndef calculate_discount(price, discount):\n    final_price = price - int(discount)\n    return final_price\n```",
+                "error": "Invalid structured JSON response"
+            }
+        ],
+        "finished_at": "2026-06-19T14:14:08.161934",
+        "reason": "Maximum attempts reached"
+    },
+    {
+        "run_id": "20260619_141455",
+        "run_folder": "attempts/run_20260619_141455",
+        "original_file": "sample_bug.py",
+        "original_code": "def calculate_discount(price, discount):\n    final_price = price + discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+        "final_file": "sample_bug.py",
+        "success": false,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": null,
+                "code": "{\n    \"value\": {\n        \"code\": \"def calculate_discount(price, discount):\\n    final_price = price - discount\\n    return final_price\"\n    }\n}",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 2,
+                "file": null,
+                "code": "{\n\"value\": {\n    \"code\": \"def calculate_discount(price, discount):\\n    final_price = price - int(discount)\\n    return final_price\"\n}\n}",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 3,
+                "file": null,
+                "code": "{\n\"value\": {\n    \"code\": \"def calculate_discount(price, discount):\\n    final_price = price - int(discount)\\n    return final_price\"\n}\n}",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 4,
+                "file": null,
+                "code": "{\n\"value\": {\n    \"code\": \"def calculate_discount(price, discount):\\n    final_price = price - int(discount)\\n    return final_price\"\n}\n}",
+                "error": "Invalid structured JSON response"
+            },
+            {
+                "attempt": 5,
+                "file": null,
+                "code": "{\n\"value\": {\n    \"code\": \"def calculate_discount(price, discount):\\n    final_price = price - int(discount)\\n    return final_price\"\n}\n}",
+                "error": "Invalid structured JSON response"
+            }
+        ],
+        "finished_at": "2026-06-19T14:15:15.414814",
+        "reason": "Maximum attempts reached"
+    },
+    {
+        "run_id": "20260619_141559",
+        "run_folder": "attempts/run_20260619_141559",
+        "original_file": "sample_bug.py",
+        "original_code": "def calculate_discount(price, discount):\n    final_price = price + discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+        "final_file": "attempts/run_20260619_141559/attempt_1.py",
+        "success": true,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": "attempts/run_20260619_141559/attempt_1.py",
+                "code": "def calculate_discount(price, discount):\n    final_price = price - discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+                "error": "Traceback (most recent call last):\n  File \"C:\\Users\\abishek\\Desktop\\PROJECTS\\bug_fixer_agent\\sample_bug.py\", line 10, in <module>\n    raise Exception(f\"Expected 190, got {result}\")\nException: Expected 190, got 210\n"
+            }
+        ],
+        "finished_at": "2026-06-19T14:16:05.164530"
+    },
+    {
+        "run_id": "20260619_141830",
+        "run_folder": "attempts/run_20260619_141830",
+        "original_file": "sample_bug.py",
+        "original_code": "def calculate_discount(price, discount):\n    final_price = price + discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+        "final_file": "attempts/run_20260619_141830/attempt_1.py",
+        "success": true,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": "attempts/run_20260619_141830/attempt_1.py",
+                "code": "def calculate_discount(price, discount):\n    final_price = price - discount\n    return final_price\n\nresult = calculate_discount(200, 10)\n\nif result == 190:\n    print(\"Test passed\")\nelse:\n    raise Exception(f\"Expected 190, got {result}\")",
+                "error": "Traceback (most recent call last):\n  File \"C:\\Users\\abishek\\Desktop\\PROJECTS\\bug_fixer_agent\\sample_bug.py\", line 10, in <module>\n    raise Exception(f\"Expected 190, got {result}\")\nException: Expected 190, got 210\n",
+                "bug_type": "Arithmetic Error",
+                "explanation": "The bug occurs because the discount value is being added to the price instead of subtracted.",
+                "confidence": 1.0
+            }
+        ],
+        "finished_at": "2026-06-19T14:18:36.299798"
     }
 ]
