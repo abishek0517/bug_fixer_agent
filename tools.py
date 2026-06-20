@@ -3,6 +3,9 @@ import os
 import py_compile
 
 
+TEST_MARKER = "# === TESTS ==="
+
+
 def read_file(filename):
     with open(filename, "r") as file:
         return file.read()
@@ -137,26 +140,19 @@ def create_attempt_memory(
     return memory
 
 
-def get_test_marker():
-    return "result = calculate_discount(200, 10)"
-
-
 def get_function_code(code):
-    marker = get_test_marker()
-
-    if marker not in code:
+    if TEST_MARKER not in code:
         return code.strip()
 
-    return code[:code.index(marker)].strip()
+    return code.split(TEST_MARKER, 1)[0].strip()
 
 
 def get_test_code(code):
-    marker = get_test_marker()
-
-    if marker not in code:
+    if TEST_MARKER not in code:
         return ""
 
-    return code[code.index(marker):].strip()
+    test_code = code.split(TEST_MARKER, 1)[1].strip()
+    return TEST_MARKER + "\n\n" + test_code
 
 
 def keep_original_test_code(original_code, fixed_code):
@@ -190,11 +186,8 @@ Error:
     prompt = f"""
 You are an expert Python debugging agent.
 
-The previous version failed.
-
-Important meaning:
-The discount value is a fixed amount, not a percentage.
-For example, price 200 and discount 10 should become 190.
+The Python program failed its locked tests.
+Use the test failure to understand the expected behavior.
 
 Return only valid JSON using this exact structure:
 
@@ -206,15 +199,14 @@ Return only valid JSON using this exact structure:
 }}
 
 Rules:
-1. Do NOT change input values.
-2. Do NOT remove functionality.
-3. Only fix the bug.
-4. Return only valid JSON.
-5. Do NOT use markdown.
-6. Do NOT repeat previous attempts.
-7. The test code is locked.
-8. Only change the function logic.
-9. Confidence must be a number from 0.0 to 1.0.
+1. Only fix the Python code above the test marker.
+2. Do NOT change code below the test marker.
+3. Do NOT change test inputs or expected outputs.
+4. Do NOT remove functionality.
+5. Return only valid JSON.
+6. Do NOT use markdown.
+7. Do NOT repeat previous attempts.
+8. Confidence must be a number from 0.0 to 1.0.
 
 Previous attempts:
 {previous_attempts_text}

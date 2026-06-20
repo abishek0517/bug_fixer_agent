@@ -1,7 +1,5 @@
 def find_largest(numbers):
-    largest = min(numbers)
-    return largest
-
+    return max(numbers)
 
 # === TESTS ===
 

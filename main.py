@@ -1,8 +1,11 @@
+import os
+import sys
 from datetime import datetime
 
 from runner import run_code
 from ollama_client import ask_ollama
 from tools import (
+    TEST_MARKER,
     read_file,
     create_run_folder,
     save_history,
@@ -17,14 +20,27 @@ from tools import (
 
 MAX_ATTEMPTS = 5
 HISTORY_FILE = "bug_history.json"
-ORIGINAL_FILE = "sample_bug.py"
+
+if len(sys.argv) > 1:
+    ORIGINAL_FILE = sys.argv[1]
+else:
+    ORIGINAL_FILE = "sample_bug.py"
+
+if not os.path.exists(ORIGINAL_FILE):
+    print(f"File not found: {ORIGINAL_FILE}")
+    raise SystemExit(1)
+
+original_code = read_file(ORIGINAL_FILE)
+
+if TEST_MARKER not in original_code:
+    print(f"Missing test marker: {TEST_MARKER}")
+    raise SystemExit(1)
 
 current_file = ORIGINAL_FILE
 previous_attempts = []
 
 run_id = datetime.now().strftime("%Y%m%d_%H%M%S")
 run_folder = create_run_folder(run_id)
-original_code = read_file(ORIGINAL_FILE)
 
 
 for attempt in range(1, MAX_ATTEMPTS + 1):

@@ -13,7 +13,7 @@ The goal of this project is to learn how agents work:
 
 ## Current Status
 
-Current checkpoint: **Phase 5 completed**
+Current checkpoint: **Phase 6 completed**
 
 Completed:
 
@@ -22,12 +22,13 @@ Completed:
 - Phase 3: Agent memory and history
 - Phase 4: Tool-based agent design
 - Phase 5: Structured reasoning output
+- Phase 6: General Python logic-error fixing
 
 Next:
 
-- Start Phase 6: Python logic error fixing
+- Start Phase 7: Simple Streamlit UI
 
-Note: A small part of Phase 6 was tested early, but the full phase is not complete.
+Phase 6 was tested with different functions and multiple expected outputs.
 
 ## Learning Workflow
 
@@ -57,10 +58,14 @@ This is a hands-on learning project:
 - Builds prompts through a helper tool
 - Saves history records through a helper tool
 - Keeps original test code locked while applying generated fixes
-- Has fixed simple runtime errors and one experimental logic error
+- Fixes simple runtime errors and tested Python logic errors
 - Requests structured JSON from Ollama using a JSON schema
 - Reads bug type, explanation, fixed code, and confidence
 - Stores structured reasoning details in attempt history
+- Uses a generic `# === TESTS ===` boundary to lock tests
+- Supports multiple test cases and expected outputs
+- Accepts a Python filename from the command line
+- Rejects missing files and files without the test marker
 
 ## Project Structure
 
@@ -119,6 +124,12 @@ Run the agent:
 
 ```powershell
 python main.py
+```
+
+Run the agent with a specific Python file:
+
+```powershell
+python main.py filename.py
 ```
 
 ## Learning Focus
