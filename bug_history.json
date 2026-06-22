@@ -483,5 +483,45 @@
             }
         ],
         "finished_at": "2026-06-20T13:27:21.541180"
+    },
+    {
+        "run_id": "20260622_163317",
+        "run_folder": "attempts/run_20260622_163317",
+        "original_file": "uploads\\sample_bug.py",
+        "original_code": "def find_largest(numbers):\n\n    largest = min(numbers)\n\n    return largest\n\n\n\n\n\n# === TESTS ===\n\n\n\ntest_cases = [\n\n    ([2, 9, 4], 9),\n\n    ([-8, -2, -5], -2),\n\n    ([7], 7)\n\n]\n\n\n\nfor numbers, expected in test_cases:\n\n    result = find_largest(numbers)\n\n\n\n    if result != expected:\n\n        raise Exception(\n\n            f\"For {numbers}, expected {expected}, got {result}\"\n\n        )\n\n\n\nprint(\"All tests passed\")",
+        "final_file": "attempts/run_20260622_163317/attempt_1.py",
+        "success": true,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": "attempts/run_20260622_163317/attempt_1.py",
+                "code": "def find_largest(numbers):\n    largest = max(numbers)\n    return largest\n\n# === TESTS ===\n\ntest_cases = [\n\n    ([2, 9, 4], 9),\n\n    ([-8, -2, -5], -2),\n\n    ([7], 7)\n\n]\n\n\n\nfor numbers, expected in test_cases:\n\n    result = find_largest(numbers)\n\n\n\n    if result != expected:\n\n        raise Exception(\n\n            f\"For {numbers}, expected {expected}, got {result}\"\n\n        )\n\n\n\nprint(\"All tests passed\")",
+                "error": "Traceback (most recent call last):\n  File \"C:\\Users\\abishek\\Desktop\\PROJECTS\\bug_fixer_agent\\uploads\\sample_bug.py\", line 35, in <module>\n    raise Exception(\n    ...<3 lines>...\n    )\nException: For [2, 9, 4], expected 9, got 2\n",
+                "bug_type": "Logic Bug",
+                "explanation": "The function is returning the smallest number instead of the largest.",
+                "confidence": 1.0
+            }
+        ],
+        "finished_at": "2026-06-22T16:33:32.725679"
+    },
+    {
+        "run_id": "20260622_163718",
+        "run_folder": "attempts/run_20260622_163718",
+        "original_file": "uploads\\sample_bug.py",
+        "original_code": "def find_largest(numbers):\n\n    largest = min(numbers)\n\n    return largest\n\n\n\n\n\n# === TESTS ===\n\n\n\ntest_cases = [\n\n    ([2, 9, 4], 9),\n\n    ([-8, -2, -5], -2),\n\n    ([7], 7)\n\n]\n\n\n\nfor numbers, expected in test_cases:\n\n    result = find_largest(numbers)\n\n\n\n    if result != expected:\n\n        raise Exception(\n\n            f\"For {numbers}, expected {expected}, got {result}\"\n\n        )\n\n\n\nprint(\"All tests passed\")",
+        "final_file": "attempts/run_20260622_163718/attempt_1.py",
+        "success": true,
+        "attempts": [
+            {
+                "attempt": 1,
+                "file": "attempts/run_20260622_163718/attempt_1.py",
+                "code": "def find_largest(numbers):\n    largest = max(numbers)\n    return largest\n\n# === TESTS ===\n\ntest_cases = [\n\n    ([2, 9, 4], 9),\n\n    ([-8, -2, -5], -2),\n\n    ([7], 7)\n\n]\n\n\n\nfor numbers, expected in test_cases:\n\n    result = find_largest(numbers)\n\n\n\n    if result != expected:\n\n        raise Exception(\n\n            f\"For {numbers}, expected {expected}, got {result}\"\n\n        )\n\n\n\nprint(\"All tests passed\")",
+                "error": "Traceback (most recent call last):\n  File \"C:\\Users\\abishek\\Desktop\\PROJECTS\\bug_fixer_agent\\uploads\\sample_bug.py\", line 35, in <module>\n    raise Exception(\n    ...<3 lines>...\n    )\nException: For [2, 9, 4], expected 9, got 2\n",
+                "bug_type": "Incorrect logic",
+                "explanation": "The function is currently returning the smallest number instead of the largest.",
+                "confidence": 1.0
+            }
+        ],
+        "finished_at": "2026-06-22T16:37:23.227649"
     }
 ]

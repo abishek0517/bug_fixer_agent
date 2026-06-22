@@ -13,7 +13,7 @@ The goal of this project is to learn how agents work:
 
 ## Current Status
 
-Current checkpoint: **Phase 6 completed**
+Current checkpoint: **Phase 7 completed**
 
 Completed:
 
@@ -23,12 +23,13 @@ Completed:
 - Phase 4: Tool-based agent design
 - Phase 5: Structured reasoning output
 - Phase 6: General Python logic-error fixing
+- Phase 7: Simple Streamlit UI
 
 Next:
 
-- Start Phase 7: Simple Streamlit UI
+- Start Phase 8: Multi-agent design
 
-Phase 6 was tested with different functions and multiple expected outputs.
+Phase 7 was tested by uploading a Python file in the browser and running the bug fixer from the UI.
 
 ## Learning Workflow
 
@@ -66,6 +67,12 @@ This is a hands-on learning project:
 - Supports multiple test cases and expected outputs
 - Accepts a Python filename from the command line
 - Rejects missing files and files without the test marker
+- Provides a Streamlit browser UI
+- Uploads Python files through the UI
+- Shows uploaded code before running the agent
+- Runs the bug fixer from a button click
+- Shows structured agent output in the browser
+- Provides the generated fixed code for download
 
 ## Project Structure
 
@@ -77,9 +84,11 @@ Auto Bug Fixer Agent
 |-- ollama_client.py       Talks to local Ollama
 |-- tools.py               Reusable agent helper tools
 |-- main.py                Main agent loop
+|-- app.py                 Streamlit browser UI
 |-- bug_history.json       Saved run history
 |-- PROJECT_PHASES.txt     Project roadmap
 |-- attempts/              Generated fix attempts
+|-- uploads/               Temporary uploaded files
 ```
 
 ## How It Works
@@ -105,6 +114,7 @@ main.py
 - Ollama
 - Llama 3 model
 - requests package
+- streamlit package
 
 ## Run
 
@@ -130,6 +140,12 @@ Run the agent with a specific Python file:
 
 ```powershell
 python main.py filename.py
+```
+
+Run the browser UI:
+
+```powershell
+streamlit run app.py
 ```
 
 ## Learning Focus
